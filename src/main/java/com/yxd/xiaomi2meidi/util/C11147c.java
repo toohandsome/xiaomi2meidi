@@ -1,0 +1,41 @@
+package com.yxd.xiaomi2meidi.util;
+
+public class C11147c {
+    public static final byte MIDEA_AIR_BOX = 18;
+    public static final byte MIDEA_AIR_CONDITIONER = -84;
+    public static final byte MIDEA_AIR_CONDITIONER_FANS = -2;
+    public static final byte MIDEA_AIR_DRYER = -95;
+    public static final byte MIDEA_AIR_PURIFIER = -4;
+    public static final byte MIDEA_AIR_WATER_HEATER = -51;
+    public static final byte MIDEA_ALL_TYPE = -1;
+    public static final byte MIDEA_CLOTHES_DRYER = -36;
+    public static final byte MIDEA_CURTAIN = 20;
+    public static final byte MIDEA_DISH_WASHER = -31;
+    public static final byte MIDEA_DURM_WASHER = -37;
+    public static final byte MIDEA_ELECTRIC_FAN = -6;
+    public static final byte MIDEA_ELECTRIC_WATER_HEATER = -30;
+    public static final byte MIDEA_GAS_WATER_HEATER = -29;
+    public static final byte MIDEA_HEATER = -5;
+    public static final byte MIDEA_HOB = -73;
+    public static final byte MIDEA_HOOD = -74;
+    public static final byte MIDEA_HUMIDIFIER = -3;
+    public static final byte MIDEA_INDUCTION = -71;
+    public static final byte MIDEA_INDUCTION_COOKER = -21;
+    public static final byte MIDEA_LIGHT = 19;
+    public static final byte MIDEA_MBOX = 27;
+    public static final byte MIDEA_MDV = -52;
+    public static final byte MIDEA_MICROWAVE_OVEN = -80;
+    public static final byte MIDEA_OVEN = -79;
+    public static final byte MIDEA_PLUG = 16;
+    public static final byte MIDEA_PRESSURE_COOKER = -20;
+    public static final byte MIDEA_REFRIGERATOR = -54;
+    public static final byte MIDEA_REMOTE_CONTROLLER = 17;
+    public static final byte MIDEA_RICE_COOKER = -22;
+    public static final byte MIDEA_SOYBEAN_MACHINE = -17;
+    public static final byte MIDEA_STEAMER = -78;
+    public static final byte MIDEA_STERILIZER = -77;
+    public static final byte MIDEA_SWEEP_ROBOT = -72;
+    public static final byte MIDEA_TOSTER = -76;
+    public static final byte MIDEA_WASH_MACHINE = -38;
+    public static final byte MIDEA_WATER_PURIFIER = -19;
+}
