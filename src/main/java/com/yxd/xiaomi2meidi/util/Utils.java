@@ -1,6 +1,7 @@
 package com.yxd.xiaomi2meidi.util;
 
 import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.JSONObject;
 import com.alibaba.fastjson2.JSONWriter;
 import com.yxd.xiaomi2meidi.cache.Gcache;
 import com.yxd.xiaomi2meidi.corn.RefreshToken;
@@ -44,8 +45,8 @@ public class Utils {
     }
 
 
-    public static void checkResp(String respStr ) {
-        MasRsp resp = JSON.parseObject(respStr,MasRsp.class);
+    public static void checkResp(String respStr) {
+        MasRsp resp = JSON.parseObject(respStr, MasRsp.class);
         if (resp.getCode() != 0) {
             if (resp.getCode() == 40002) {
                 log.info("token 过期 , 尝试换取token");
@@ -60,11 +61,13 @@ public class Utils {
     }
 
     public static void writeConfig() {
-        var pretty = JSON.toJSONString(Gcache.config, JSONWriter.Feature.PrettyFormat,
-                JSONWriter.Feature.WriteMapNullValue,
-                JSONWriter.Feature.WriteNullListAsEmpty);
+
+//        String pretty1 = JSONObject.toJSONString(Gcache.config, JSONWriter.Feature.PrettyFormat);
+        String pretty2 = JSON.toJSONString(Gcache.config, JSONWriter.Feature.PrettyFormat);
+//        log.info("pretty1:" + pretty1);
+//        log.info("pretty2:" + pretty2);
         try {
-            Files.writeString(Paths.get(Gcache.cache.get("configPath")), pretty);
+            Files.writeString(Paths.get(Gcache.cache.get("configPath")), pretty2);
         } catch (Exception e) {
             e.printStackTrace();
         }

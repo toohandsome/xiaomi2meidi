@@ -123,7 +123,7 @@ public class AppStart implements CommandLineRunner {
                 object.setDeviceName(getDeviceName());
                 object.setOsVersion(getOsVer());
                 Gcache.config = object;
-                log.warn("config not exists , create new");
+                log.warn("config not exists , create new, " + object.toString());
                 config.createNewFile();
                 Utils.writeConfig();
                 log.warn("请在配置文件: " + config.getAbsolutePath() + " 中输入 phone: 手机号, password: 密码,acNameList: 空调名称(多个用逗号隔开), blinkerKeyList: 点灯的authkey(多个用逗号隔开,需要与空调名称一一对应)  ");

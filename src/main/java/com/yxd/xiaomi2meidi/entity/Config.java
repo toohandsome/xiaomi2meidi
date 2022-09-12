@@ -36,5 +36,6 @@ public class Config {
     private List<Device> deviceList = new ArrayList<>();
     @JSONField(ordinal = 14)
     private boolean useNullInfo = true;
+
 }
 
