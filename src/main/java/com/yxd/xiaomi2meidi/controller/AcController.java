@@ -3,6 +3,8 @@ package com.yxd.xiaomi2meidi.controller;
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.TypeReference;
 
+import com.fasterxml.jackson.databind.JavaType;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.yxd.xiaomi2meidi.anotation.TokenCheck;
 import com.yxd.xiaomi2meidi.cache.Gcache;
 import com.yxd.xiaomi2meidi.corn.RefreshToken;
@@ -26,6 +28,7 @@ import java.util.Map;
 
 import static com.yxd.xiaomi2meidi.tracker.Common.HTTP_SERVER_IOT_SECRET;
 import static com.yxd.xiaomi2meidi.util.Utils.*;
+
 /**
  * @author Administrator
  */
@@ -94,6 +97,24 @@ public class AcController {
         MasRsp<LoginRspData> loginResp = JSON.parseObject(resp1, new TypeReference<MasRsp<LoginRspData>>() {
         });
 
+//        ObjectMapper mapper = new ObjectMapper();
+//        MasRsp<LoginRspData> loginResp = null;
+//        try {
+//            loginResp = mapper.readValue(resp1, new com.fasterxml.jackson.core.type.TypeReference<MasRsp<LoginRspData>>() {
+//            });
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//
+//            try {
+//                JavaType javaType = mapper.getTypeFactory().constructType(MasRsp.class, LoginRspData.class);
+//                mapper.readValue(resp1, javaType);
+//            } catch (Exception e1) {
+//                e1.printStackTrace();
+//                throw new RuntimeException("json 转换异常");
+//            }
+//
+//        }
+
 
         LoginRspData data = loginResp.getData();
         String tokenPwd = data.getMdata().getTokenPwdInfo().getTokenPwd();
@@ -122,6 +143,12 @@ public class AcController {
         String resp2 = doExecute(httpClient, request2);
         log.info("getDeviceListResp: " + resp2);
         checkResp(resp2);
+
+//        ObjectMapper mapper = new ObjectMapper();
+//
+//        MasRsp<ApplianceList> homegroupRespObj = mapper.readValue(resp2, new com.fasterxml.jackson.core.type.TypeReference<MasRsp<ApplianceList>>() {
+//        });
+
         MasRsp<ApplianceList> homegroupRespObj = JSON.parseObject(resp2, new TypeReference<MasRsp<ApplianceList>>() {
         });
         List<Appliance> appliance = homegroupRespObj.getData().getAppliance();
@@ -140,23 +167,28 @@ public class AcController {
 
     @GetMapping("/togglePower")
     @TokenCheck
-    public void togglePower(String name,boolean state) throws IOException {
+    public void togglePower(String name, boolean state) throws IOException {
 
+        log.info("togglePower: name: " + name + " , state: " + state);
         List<Device> deviceList = Gcache.config.getDeviceList();
         if (deviceList.isEmpty()) {
-            log.error("当前无设备列表");
-            return;
+            log.error("当前无设备列表,尝试重新获取");
+            getDeviceList();
         }
+        deviceList = Gcache.config.getDeviceList();
+        log.info("deviceList: " + JSON.toJSONString(deviceList));
         String sn = "";
         if (StringUtils.hasText(name)) {
             for (Device device : deviceList) {
+                log.info("togglePower: device.getName(): " + device.getName() + " , name: " + name + " ,equals:  " + name.equals(device.getName()));
                 if (name.equals(device.getName())) {
                     sn = device.getApplianceCode();
                 }
             }
         } else {
             sn = deviceList.get(0).getApplianceCode();
-            state =true;
+            state = true;
+            log.info("未指定空调名称,当前操作为打开第一个");
         }
 
         PowerControl powerControl = new PowerControl();
@@ -172,7 +204,7 @@ public class AcController {
                 .build();
         String resp2 = doExecute(httpClient, request2);
 
-        log.info("未指定空调名称,当前操作为打开第一个. togglePowerResp: " + resp2);
+        log.info(" togglePowerResp: " + resp2);
     }
 
     @TokenCheck
@@ -200,9 +232,6 @@ public class AcController {
         writeConfig();
         return homegroupRespObj;
     }
-
-
-
 
 
 }
