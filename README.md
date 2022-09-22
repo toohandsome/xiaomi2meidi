@@ -1,5 +1,6 @@
 # xiaomi2meidi
 
+软件需常驻后台，建议运行在服务器上
 
 使用方法参考  https://www.cnblogs.com/mysgk/p/16687363.html
 
