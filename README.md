@@ -1,4 +1,4 @@
-# xiaomi2meidi
+# xiaomi2meidi  小同学控制美的空调 
 
 1. 软件需常驻后台，建议运行在服务器上
 
